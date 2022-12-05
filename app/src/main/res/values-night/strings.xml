@@ -29,4 +29,6 @@
     <string name="share_text">Share</string>
     <string name="add_course">Add Course</string>
     <string name="course_start_text">Course Start Date</string>
+    <string name="instructorsText">Insturctors</string>
+    <string name="addInstrPrompt">Add Instructors to see them here.</string>
 </resources>

@@ -9,17 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.c196.R;
-import com.android.c196.adapters.Term_RecyclerViewAdapter;
+import com.android.c196.adapters.TermsRecyclerViewAdapter;
 import com.android.c196.model.Term;
 import com.android.c196.util.Repository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class Terms extends AppCompatActivity implements Term_RecyclerViewAdapter.HandleClickTerm {
+public class Terms extends AppCompatActivity implements TermsRecyclerViewAdapter.HandleClickTerm {
     private List<Term> terms;
     private Repository repository;
-    private Term_RecyclerViewAdapter adapter;
+    private TermsRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private FloatingActionButton addTermFab;
 
@@ -33,10 +33,11 @@ public class Terms extends AppCompatActivity implements Term_RecyclerViewAdapter
         terms = repository.getAllTerms();
         addTermFab = findViewById(R.id.addTermFab);
         recyclerView = findViewById(R.id.termsRecyclerView);
-        adapter = new Term_RecyclerViewAdapter(this);
+        adapter = new TermsRecyclerViewAdapter(this, repository);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setTerms(terms);
+        adapter.notifyDataSetChanged();
 
 
 

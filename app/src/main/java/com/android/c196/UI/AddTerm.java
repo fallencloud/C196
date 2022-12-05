@@ -46,7 +46,7 @@ public class AddTerm extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         cancelButton = findViewById(R.id.cancelButton);
         termCalendarView = findViewById(R.id.termCalendarView);
-        termCalendarView.setDate(View.GONE);
+        termCalendarView.setVisibility(View.GONE);
         isStart = false;
 
         startPickerButton.setOnClickListener(view2 -> {

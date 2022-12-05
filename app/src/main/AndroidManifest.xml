@@ -10,6 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.C196">
         <activity
+            android:name=".AddCourse"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".UI.TermCourses"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".UI.AddTerm"
             android:exported="false">
             <meta-data

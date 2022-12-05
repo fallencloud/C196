@@ -1,34 +1,40 @@
 package com.android.c196.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.c196.R;
+import com.android.c196.UI.TermCourses;
 import com.android.c196.model.Term;
+import com.android.c196.util.Repository;
 import com.android.c196.util.Utils;
 
 import java.util.List;
 
-public class Term_RecyclerViewAdapter extends RecyclerView.Adapter<Term_RecyclerViewAdapter.TermViewHolder> {
+public class TermsRecyclerViewAdapter extends RecyclerView.Adapter<TermsRecyclerViewAdapter.TermViewHolder> {
 
     private List<Term> terms;
     private Context context;
     private LayoutInflater inflater;
+    private Repository repo;
 
     //constructor
-    public Term_RecyclerViewAdapter(Context context) {
+    public TermsRecyclerViewAdapter(Context context, Repository repo) {
 
         inflater = LayoutInflater.from(context);
         this.context = context;
+        this.repo = repo;
     }
 
     public void setTerms(List<Term> terms) {
@@ -51,7 +57,7 @@ public class Term_RecyclerViewAdapter extends RecyclerView.Adapter<Term_Recycler
             Term term = terms.get(position);
             holder.termTitleText.setText(term.getTermTitle());
             holder.termStartText.setText(Utils.formatDate(term.getTermStartDate()));
-            holder.termEndText.setText(Utils.formatButtonDate(term.getTermEndDate()));
+            holder.termEndText.setText(Utils.formatDate(term.getTermEndDate()));
 
             holder.termHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,11 +71,35 @@ public class Term_RecyclerViewAdapter extends RecyclerView.Adapter<Term_Recycler
                 }
             });
 
-            holder.termHeader.setVisibility(View.VISIBLE);
+            holder.showCoursesIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, TermCourses.class);
+                    intent.putExtra("termId", term.getTermId());
+                    context.startActivity(intent);
+                }
+            });
+
+            holder.deleteTermIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(repo.getTermCourses(term.getTermId()).size() != 0) {
+                        Toast toast = Toast.makeText(context, "You cannot delete a term with courses.", Toast.LENGTH_LONG);
+                        toast.show();
+                    } else {
+                        repo.deleteTerm(term);
+                        terms = repo.getAllTerms();
+                        notifyItemRemoved(holder.getAdapterPosition());
+                    }
+                }
+            });
+
             holder.isEmpty.setVisibility(View.GONE);
+            holder.termHeader.setVisibility(View.VISIBLE);
         } else {
             holder.isEmpty.setVisibility(View.VISIBLE);
             holder.termHeader.setVisibility(View.GONE);
+
         }
     }
 
@@ -82,6 +112,7 @@ public class Term_RecyclerViewAdapter extends RecyclerView.Adapter<Term_Recycler
         private TextView termTitleText;
         private ImageView editTermIcon;
         private ImageView deleteTermIcon;
+        private ImageView showCoursesIcon;
         private LinearLayout termDetailsDisplay;
         private TextView termStartText;
         private TextView termEndText;
@@ -93,6 +124,7 @@ public class Term_RecyclerViewAdapter extends RecyclerView.Adapter<Term_Recycler
 
             termHeader = itemView.findViewById(R.id.termHeader);
             termTitleText = itemView.findViewById(R.id.termTitleText);
+            showCoursesIcon = itemView.findViewById(R.id.showCoursesIcon);
             editTermIcon = itemView.findViewById(R.id.editTermIcon);
             deleteTermIcon = itemView.findViewById(R.id.deleteTermIcon);
             termDetailsDisplay = itemView.findViewById(R.id.termDetailsDisplay);
@@ -100,6 +132,7 @@ public class Term_RecyclerViewAdapter extends RecyclerView.Adapter<Term_Recycler
             termEndText = itemView.findViewById(R.id.termEndText);
             termDetailsDisplay.setVisibility(View.GONE);
             isEmpty = itemView.findViewById(R.id.isEmpty);
+
         }
     }
 
