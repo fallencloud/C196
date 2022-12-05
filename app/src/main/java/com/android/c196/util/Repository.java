@@ -3,6 +3,7 @@ package com.android.c196.util;
 import android.app.Application;
 
 import com.android.c196.model.Course;
+import com.android.c196.model.Instructor;
 import com.android.c196.model.Term;
 
 import java.util.List;
@@ -13,11 +14,15 @@ public class Repository {
     //declare Daos
     private TermDao termDao;
     private CourseDao courseDao;
+    private InstructorDao instructorDao;
     private List<Term> allTerms;
     private List<Course> allCourses;
     private List<Course> termCourses;
+    private List<Instructor> allInstructors;
     private Term currentTerm;
     private Course currentCourse;
+    private List<Instructor> courseInstructors;
+    private Instructor currentInstr;
 
 
     public static int NUMBER_OF_THREADS = 4;
@@ -30,6 +35,7 @@ public class Repository {
         AppDatabase database = AppDatabase.getDatabase(application);
         termDao = database.termDao();
         courseDao = database.courseDao();
+        instructorDao = database.instructorDao();
 
     }
 
@@ -161,6 +167,81 @@ public class Repository {
 
     public void deleteCourse(Course course) {
         courseDao.deleteCourse(course);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /****************
+     * Term API
+     **************/
+
+    public List<Instructor> getAllInstructors() {
+        databaseExecutor.execute(() -> {
+            allInstructors = instructorDao.getAllInstructors();
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return allInstructors;
+    }
+
+    public void insertInstructor(Instructor instructor) {
+        databaseExecutor.execute(() -> {
+            instructorDao.insertInstructor(instructor);
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Instructor> getCourseInstructors(int courseId) {
+        databaseExecutor.execute(() -> {
+            courseInstructors = instructorDao.getCourseInstructors(courseId);
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return courseInstructors;
+    }
+
+    public Instructor getInstructor(int instrId) {
+        databaseExecutor.execute(() -> currentInstr = instructorDao.getInstructor(instrId));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return currentInstr;
+    }
+
+    public void updateInstructor(Instructor instructor) {
+        databaseExecutor.execute(() -> instructorDao.updateInstructor(instructor));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteInstructor(Instructor instructor) {
+        databaseExecutor.execute(() -> instructorDao.deleteInstructor(instructor));
 
         try {
             Thread.sleep(1000);

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddInstructor">
+
+    <EditText
+        android:id="@+id/firstNameInput"
+        style="@style/text_input_field"
+        android:hint="@string/firstNameHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/lastNameInput"
+        style="@style/text_input_field"
+        android:hint="@string/lastNameHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstNameInput" />
+
+    <EditText
+        android:id="@+id/emailInput"
+        style="@style/text_input_field"
+        android:hint="@string/emailHint"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lastNameInput" />
+
+    <EditText
+        android:id="@+id/phoneInput"
+        style="@style/text_input_field"
+        android:hint="@string/phoneHint"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailInput" />
+
+    <Button
+        android:id="@+id/saveInstructorButton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/save_text"
+        app:flow_horizontalAlign="center"
+        app:layout_constraintEnd_toStartOf="@+id/cancelInstructorButton"
+        app:layout_constraintTop_toBottomOf="@+id/phoneInput" />
+
+    <Button
+        android:id="@+id/cancelInstructorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/cancel_text"
+        app:flow_horizontalAlign="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneInput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

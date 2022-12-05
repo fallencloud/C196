@@ -8,13 +8,15 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.android.c196.model.Course;
+import com.android.c196.model.Instructor;
 import com.android.c196.model.Term;
 
-@Database(entities = {Term.class, Course.class}, version = 1, exportSchema = false)
+@Database(entities = {Term.class, Course.class, Instructor.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract TermDao termDao();
     public abstract CourseDao courseDao();
+    public abstract InstructorDao instructorDao();
     public static final String DATABASE_NAME = "app_database";
     private static volatile AppDatabase INSTANCE;
 

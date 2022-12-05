@@ -15,4 +15,11 @@
         <!-- Customize your theme here. -->
 
     </style>
+    <style name="Theme.C196.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.C196.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+    <style name="Theme.C196.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

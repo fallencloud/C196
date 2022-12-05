@@ -16,11 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.c196.UI.TermCourses;
 import com.android.c196.model.Course;
 import com.android.c196.model.CourseStatus;
+import com.android.c196.model.Instructor;
 import com.android.c196.util.Repository;
 import com.android.c196.util.Utils;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class AddCourse extends AppCompatActivity {
     //instance variables
@@ -39,6 +41,8 @@ public class AddCourse extends AppCompatActivity {
     Date startDate;
     Date endDate;
     private Repository repository;
+    //Temporary List of Instructors
+    List<Instructor> courseInstructors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
