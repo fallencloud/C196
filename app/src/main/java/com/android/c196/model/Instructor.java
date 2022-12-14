@@ -8,20 +8,18 @@ public class Instructor {
     @PrimaryKey(autoGenerate = true)
     private int instrId;
     private int courseId;
-    private String firstName;
-    private String lastName;
+    private String instrName;
     private String email;
     private String phone;
 
     public Instructor() {
     }
 
-    public Instructor(int courseId, String firstName, String lastName, String email, String phone) {
-        this.courseId = courseId;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Instructor( String instrName, String email, String phone, int courseId) {
+        this.instrName = instrName;
         this.email = email;
         this.phone = phone;
+        this.courseId = courseId;
     }
 
     public int getInstrId() {
@@ -40,20 +38,12 @@ public class Instructor {
         this.courseId = courseId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getInstrName() {
+        return instrName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setInstrName(String instrName) {
+        this.instrName = instrName;
     }
 
     public String getEmail() {
@@ -77,8 +67,7 @@ public class Instructor {
         return "Instructor{" +
                 "instrId=" + instrId +
                 ", courseId=" + courseId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + instrName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';

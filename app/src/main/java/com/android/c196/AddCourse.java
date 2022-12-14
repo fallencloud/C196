@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +22,6 @@ import com.android.c196.util.Utils;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class AddCourse extends AppCompatActivity {
     //instance variables
@@ -30,8 +29,9 @@ public class AddCourse extends AppCompatActivity {
     private EditText courseTitleInput;
     private TextView statusText;
     private Spinner courseStatus;
-    private ImageView addInstrIcon;
-    private ImageView addInstrPrompt;
+    private EditText instrName;
+    private EditText instrPhone;
+    private EditText instrEmail;
     private Button startPickerButton;
     private Button endPickerButton;
     private Button saveButton;
@@ -42,7 +42,7 @@ public class AddCourse extends AppCompatActivity {
     Date endDate;
     private Repository repository;
     //Temporary List of Instructors
-    List<Instructor> courseInstructors;
+    private Instructor courseInstructor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,9 @@ public class AddCourse extends AppCompatActivity {
 
         courseTitleInput = findViewById(R.id.courseTitleInput);
         courseStatus = findViewById(R.id.courseStatus);
+        instrName = findViewById(R.id.instrName);
+        instrPhone = findViewById(R.id.instrPhone);
+        instrEmail = findViewById(R.id.instrEmail);
         startPickerButton = findViewById(R.id.startPickerButton);
         endPickerButton = findViewById(R.id.endPickerButton);
         saveButton = findViewById(R.id.saveButton);
@@ -95,21 +98,66 @@ public class AddCourse extends AppCompatActivity {
         saveButton.setOnClickListener(view1 -> {
             String title = courseTitleInput.getText().toString().trim();
             String status = String.valueOf(courseStatus.getSelectedItem());
+            String name = instrName.getText().toString().trim();
+            String email = instrEmail.getText().toString().trim();
+            String phone = instrPhone.getText().toString().trim();
 
-            if(!TextUtils.isEmpty(title) && startDate != null && endDate != null) {
+            if(!checkForErrors(title, name, email, phone)) {
+                //save the course
                 Course course = new Course(termId, title, startDate, endDate, handleStatus(status));
                 repository.insertCourse(course);
+
+                //save the instructors
+                Instructor instructor = new Instructor(name,email, phone, course.getCourseId());
+                repository.insertInstructor(instructor);
+
                 //cleanUp
                 courseTitleInput.setText("");
                 startDate = null;
                 endDate = null;
+
                 Intent intent = new Intent(AddCourse.this, TermCourses.class);
                 intent.putExtra("termId", termId);
                 startActivity(intent);
             } else {
                 //TODO: Add error message
+                return;
             }
         });
+
+    }
+
+    private boolean checkForErrors(String title, String name, String email, String phone) {
+        boolean hasError = false;
+        Toast toast;
+
+        if(TextUtils.isEmpty(title)) {
+            hasError = true;
+            toast = Toast.makeText(this, "Course title is required", Toast.LENGTH_LONG);
+            toast.show();
+        } else if (TextUtils.isEmpty(name)) {
+            hasError = true;
+            toast = Toast.makeText(this, "Instructor name is required", Toast.LENGTH_LONG);
+            toast.show();
+        } else if (TextUtils.isEmpty(email)) {
+            hasError = true;
+            toast = Toast.makeText(this, "Instructor email is required", Toast.LENGTH_LONG);
+            toast.show();
+        } else if (TextUtils.isEmpty(phone)) {
+            hasError = true;
+            toast = Toast.makeText(this, "Instructor phone is required", Toast.LENGTH_LONG);
+            toast.show();
+        } else if (startDate == null) {
+            hasError = true;
+            toast = Toast.makeText(this, "Start date is required", Toast.LENGTH_LONG);
+            toast.show();
+        } else if (endDate == null) {
+            hasError = true;
+            toast = Toast.makeText(this, "End date is required", Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+        return hasError;
 
     }
 

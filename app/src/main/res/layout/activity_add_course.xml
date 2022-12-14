@@ -21,13 +21,8 @@
 
     <TextView
         android:id="@+id/statusText"
-        style="@style/Widget.AppCompat.TextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        style="@style/input_label"
         android:text="@string/statusText"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/courseTitleInput" />
@@ -55,9 +50,10 @@
         <LinearLayout
             android:id="@+id/courseInstrHeader"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary_dark"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            app:barrierMargin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -65,40 +61,39 @@
             <TextView
                 android:id="@+id/courseInstrLabel"
                 style="@style/header"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/primary_dark"
-                android:text="@string/instructorsText"
-                app:layout_constraintEnd_toStartOf="@id/addInstrIcon"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/courseInstrHeader" />
-
-            <ImageView
-                android:id="@+id/addInstrIcon"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:minWidth="42dp"
-                android:minHeight="42dp"
-                android:padding="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/courseInstrHeader"
-                app:srcCompat="@drawable/ic_baseline_add_24" />
+                android:minHeight="48dp"
+                android:background="@color/primary_dark"
+                android:text="@string/instructorsText" />
+
+            <EditText
+                android:id="@+id/instrName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/instructor_name"
+                android:minHeight="48dp" />
+
+            <EditText
+                android:id="@+id/instrPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/instructor_phone"
+                android:minHeight="48dp" />
+
+            <EditText
+                android:id="@+id/instrEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/instructor_email"
+                android:minHeight="48dp" />
+
         </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/addInstrPrompt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:padding="8dp"
-            android:text="@string/addInstrPrompt"
-            android:textAlignment="viewStart"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/courseInstrHeader" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

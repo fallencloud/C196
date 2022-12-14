@@ -107,7 +107,7 @@ public class TermCourseAdapter extends RecyclerView.Adapter<TermCourseAdapter.Co
             courseHeader = itemView.findViewById(R.id.courseHeader);
             courseTitleText = itemView.findViewById(R.id.courseTitleText);
             editCourseIcon = itemView.findViewById(R.id.editCourseIcon);
-            deleteCourseIcon = itemView.findViewById(R.id.deleteTermIcon);
+            deleteCourseIcon = itemView.findViewById(R.id.deleteCourseIcon);
             courseDetailDisplay = itemView.findViewById(R.id.courseDetailsDisplay);
             courseStartText = itemView.findViewById(R.id.courseStartText);
             courseEndText = itemView.findViewById(R.id.courseEndText);
