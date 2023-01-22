@@ -2,6 +2,8 @@ package com.android.c196.util;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.android.c196.model.Course;
 import com.android.c196.model.Instructor;
 import com.android.c196.model.Term;
@@ -15,8 +17,8 @@ public class Repository {
     private TermDao termDao;
     private CourseDao courseDao;
     private InstructorDao instructorDao;
-    private List<Term> allTerms;
-    private List<Course> allCourses;
+    private LiveData<List<Term>> allTerms;
+    private LiveData<List<Course>> allCourses;
     private List<Course> termCourses;
     private List<Instructor> allInstructors;
     private Term currentTerm;
@@ -32,9 +34,13 @@ public class Repository {
 
     //instantiate DB
     public Repository(Application application) {
-        AppDatabase database = AppDatabase.getDatabase(application);
+        AppDatabase database = AppDatabase.getInstance(application);
         termDao = database.termDao();
+        allTerms = termDao.getAllTerms();
+
         courseDao = database.courseDao();
+        allCourses = courseDao.getAllCourses();
+
         instructorDao = database.instructorDao();
 
     }
@@ -43,17 +49,7 @@ public class Repository {
     /****************
      * Term API
      **************/
-    public List<Term> getAllTerms() {
-        databaseExecutor.execute(() -> {
-            allTerms = termDao.getAllTerms();
-        });
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+    public LiveData<List<Term>> getAllTerms() {
         return allTerms;
     }
 
@@ -100,18 +96,9 @@ public class Repository {
      * Course API
      **************/
 
-    public List<Course> getAllCourses() {
-        databaseExecutor.execute(() -> {
-            allCourses = courseDao.getAllCourses();
-        });
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return allCourses; }
+    public LiveData<List<Course>> getAllCourses() {
+        return allCourses;
+    }
 
     public void insertCourse(Course course) {
 
@@ -126,18 +113,8 @@ public class Repository {
         }
     }
 
-    public List<Course> getTermCourses(int termId) {
-        databaseExecutor.execute(() -> {
-            termCourses = courseDao.getTermCourses(termId);
-        });
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return termCourses;
+    public LiveData<List<Course>> getTermCourses(int termId) {
+        return courseDao.getTermCourses(termId);
     }
 
     Course getCourse(int courseId) {

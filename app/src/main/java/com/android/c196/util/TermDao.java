@@ -1,5 +1,6 @@
 package com.android.c196.util;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -20,7 +21,7 @@ public interface TermDao {
 
     //Read
     @Query("SELECT * FROM term_table ORDER BY termStartDate DESC")
-    List<Term> getAllTerms();
+    LiveData<List<Term>> getAllTerms();
 
     @Query("SELECT * FROM term_table WHERE term_table.termId == :termId")
     Term getTerm(int termId);

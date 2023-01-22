@@ -1,5 +1,6 @@
 package com.android.c196.util;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -19,10 +20,10 @@ public interface CourseDao {
 
     //Read
     @Query("SELECT * FROM course_table")
-    List<Course> getAllCourses();
+    LiveData<List<Course>> getAllCourses();
 
     @Query("SELECT * FROM course_table WHERE course_table.termId == :termId")
-    List<Course> getTermCourses(int termId);
+    LiveData<List<Course>> getTermCourses(int termId);
 
     @Query("SELECT * FROM course_table WHERE course_table.courseId == :courseId")
     Course getCourse(int courseId);
