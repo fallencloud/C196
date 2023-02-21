@@ -1,5 +1,6 @@
 package com.android.c196.util;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -20,10 +21,10 @@ public interface InstructorDao {
 
     //Read
     @Query("SELECT * FROM instructor_table")
-    List<Instructor> getAllInstructors();
+    LiveData<List<Instructor>> getAllInstructors();
 
     @Query("SELECT * FROM instructor_table WHERE instructor_table.courseId == :courseId")
-    List<Instructor> getCourseInstructors(int courseId);
+    LiveData<List<Instructor>> getCourseInstructors(int courseId);
 
     @Query("SELECT * FROM instructor_table WHERE instructor_table.instrId == :instrId")
     Instructor getInstructor(int instrId);

@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.android.c196.model.Assessment;
 import com.android.c196.model.Course;
 import com.android.c196.model.Instructor;
 import com.android.c196.model.Term;
@@ -17,13 +18,16 @@ public class Repository {
     private TermDao termDao;
     private CourseDao courseDao;
     private InstructorDao instructorDao;
+    private AssessmentDao assessmentDao;
     private LiveData<List<Term>> allTerms;
     private LiveData<List<Course>> allCourses;
+    private LiveData<List<Assessment>> allAssessments;
     private List<Course> termCourses;
-    private List<Instructor> allInstructors;
+    private LiveData<List<Instructor>> allInstructors;
+    private LiveData<List<Assessment>> courseAssessments;
     private Term currentTerm;
     private Course currentCourse;
-    private List<Instructor> courseInstructors;
+    private LiveData<List<Instructor>> courseInstructors;
     private Instructor currentInstr;
 
 
@@ -42,6 +46,10 @@ public class Repository {
         allCourses = courseDao.getAllCourses();
 
         instructorDao = database.instructorDao();
+        allInstructors = instructorDao.getAllInstructors();
+
+        assessmentDao = database.assessmentDao();
+        allAssessments = assessmentDao.getAllAssessments();
 
     }
 
@@ -117,7 +125,7 @@ public class Repository {
         return courseDao.getTermCourses(termId);
     }
 
-    Course getCourse(int courseId) {
+    public Course getCourse(int courseId) {
         databaseExecutor.execute(() -> {
             currentCourse = courseDao.getCourse(courseId);
         });
@@ -153,20 +161,10 @@ public class Repository {
     }
 
     /****************
-     * Term API
+     * Instructor API
      **************/
 
-    public List<Instructor> getAllInstructors() {
-        databaseExecutor.execute(() -> {
-            allInstructors = instructorDao.getAllInstructors();
-        });
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+    public LiveData<List<Instructor>> getAllInstructors() {
         return allInstructors;
     }
 
@@ -182,16 +180,8 @@ public class Repository {
         }
     }
 
-    public List<Instructor> getCourseInstructors(int courseId) {
-        databaseExecutor.execute(() -> {
-            courseInstructors = instructorDao.getCourseInstructors(courseId);
-        });
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public LiveData<List<Instructor>> getCourseInstructors(int courseId) {
+       courseInstructors = instructorDao.getCourseInstructors(courseId);
         return courseInstructors;
     }
 
@@ -226,4 +216,18 @@ public class Repository {
             e.printStackTrace();
         }
     }
+
+    /****************
+     * Assessment API
+     **************/
+    public void insertAssessment(Assessment assessment) {
+        databaseExecutor.execute(() -> instructorDao.deleteInstructor(instructor));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

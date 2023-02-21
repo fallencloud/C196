@@ -5,20 +5,22 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.c196.R;
 import com.android.c196.adapters.TermsRecyclerViewAdapter;
 import com.android.c196.model.Term;
-import com.android.c196.util.Repository;
+import com.android.c196.model.TermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class Terms extends AppCompatActivity implements TermsRecyclerViewAdapter.HandleClickTerm {
-    private List<Term> terms;
-    private Repository repository;
+    private TermViewModel termViewModel;
+    private List<Term> allTerms;
     private TermsRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private FloatingActionButton addTermFab;
@@ -29,14 +31,19 @@ public class Terms extends AppCompatActivity implements TermsRecyclerViewAdapter
         setContentView(R.layout.activity_terms);
         setTitle("All Terms");
 
-        repository = new Repository(getApplication());
-        terms = repository.getAllTerms();
+        termViewModel = ViewModelProviders.of(this).get(TermViewModel.class);
+        termViewModel.getAllTerms().observe(this, new Observer<List<Term>>() {
+            @Override
+            public void onChanged(List<Term> terms) {
+                allTerms = terms;
+            }
+        });
         addTermFab = findViewById(R.id.addTermFab);
         recyclerView = findViewById(R.id.termsRecyclerView);
         adapter = new TermsRecyclerViewAdapter(this, repository);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setTerms(terms);
+        adapter.setTerms(allTerms);
         adapter.notifyDataSetChanged();
 
 
