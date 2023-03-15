@@ -17,6 +17,10 @@
         <item>Dropped</item>
         <item>Plan to Take</item>
     </string-array>
+    <string-array name="assessment_type">
+        <item>Performance</item>
+        <item>Objective</item>
+    </string-array>
     <string name="firstNameHint">First Name</string>
     <string name="lastNameHint">Last Name</string>
     <string name="emailHint">Email</string>

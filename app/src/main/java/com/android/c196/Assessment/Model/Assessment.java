@@ -1,4 +1,4 @@
-package com.android.c196.model;
+package com.android.c196.Assessment.Model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -14,6 +14,10 @@ public class Assessment {
     private Date assessEndDate;
     private AssessmentType assessType;
 
+    public  Assessment() {
+
+    }
+
     public Assessment(int courseId, String assessTitle, Date assessEndDate, AssessmentType assessType) {
         this.courseId = courseId;
         this.assessTitle = assessTitle;
@@ -21,9 +25,13 @@ public class Assessment {
         this.assessType = assessType;
     }
 
+
     public int getAssessId() {
         return assessId;
     }
+    public void setAssessId(int assessId) {
+        this.assessId = assessId;
+    };
 
     public int getCourseId() {
         return courseId;

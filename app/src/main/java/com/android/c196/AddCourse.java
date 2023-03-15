@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.c196.UI.TermCourses;
-import com.android.c196.model.Course;
+import com.android.c196.Course.Model.Course;
 import com.android.c196.model.CourseStatus;
 import com.android.c196.model.Instructor;
 import com.android.c196.util.Repository;
@@ -156,6 +156,7 @@ public class AddCourse extends AppCompatActivity {
             toast = Toast.makeText(this, "End date is required", Toast.LENGTH_LONG);
             toast.show();
         }
+
 
         return hasError;
 

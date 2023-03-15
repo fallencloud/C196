@@ -1,4 +1,4 @@
-package com.android.c196.model;
+package com.android.c196.Term.Model;
 
 import android.app.Application;
 

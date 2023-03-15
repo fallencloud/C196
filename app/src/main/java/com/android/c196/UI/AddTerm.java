@@ -11,7 +11,8 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.c196.R;
-import com.android.c196.model.Term;
+import com.android.c196.Term.UI.Terms;
+import com.android.c196.Term.Model.Term;
 import com.android.c196.util.Repository;
 import com.android.c196.util.Utils;
 

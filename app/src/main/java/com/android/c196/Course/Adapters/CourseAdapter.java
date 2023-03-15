@@ -1,4 +1,4 @@
-package com.android.c196.adapters;
+package com.android.c196.Course.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,38 +12,33 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.c196.Course.Model.Course;
 import com.android.c196.R;
-import com.android.c196.model.Course;
 import com.android.c196.model.CourseStatus;
 import com.android.c196.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TermCourseAdapter extends RecyclerView.Adapter<TermCourseAdapter.CourseViewHolder> {
-    private List<Course> courses;
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHolder> {
+    private List<Course> courses = new ArrayList<>();
     private Context context;
-    private LayoutInflater inflater;
 
     //constructor
-    public TermCourseAdapter(Context context) {
-        inflater = LayoutInflater.from(context);
+    public CourseAdapter(Context context) {
         this.context = context;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(R.layout.course_recycler_view_row, parent, false);
-        return new CourseViewHolder(itemView);
+    public CourseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(context)
+                .inflate(R.layout.course_recycler_view_row, parent, false);
+        return new CourseHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CourseHolder holder, int position) {
         if(courses != null) {
             Course course = courses.get(position);
             holder.courseTitleText.setText(course.getCourseTitle());
@@ -91,7 +86,13 @@ public class TermCourseAdapter extends RecyclerView.Adapter<TermCourseAdapter.Co
         return courses.size();
     }
 
-    class CourseViewHolder  extends RecyclerView.ViewHolder {
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+        notifyDataSetChanged();
+    }
+
+    class CourseHolder extends RecyclerView.ViewHolder {
         ConstraintLayout courseHeader;
         TextView courseTitleText;
         ImageView editCourseIcon;
@@ -101,7 +102,7 @@ public class TermCourseAdapter extends RecyclerView.Adapter<TermCourseAdapter.Co
         TextView courseEndText;
         TextView statusText;
 
-        public CourseViewHolder(@NonNull View itemView) {
+        public CourseHolder(@NonNull View itemView) {
             super(itemView);
 
             courseHeader = itemView.findViewById(R.id.courseHeader);

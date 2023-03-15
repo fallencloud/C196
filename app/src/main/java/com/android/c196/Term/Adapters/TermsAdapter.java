@@ -1,4 +1,4 @@
-package com.android.c196.adapters;
+package com.android.c196.Term.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,51 +8,41 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.c196.R;
+import com.android.c196.Term.Model.Term;
 import com.android.c196.UI.TermCourses;
-import com.android.c196.model.Term;
-import com.android.c196.util.Repository;
 import com.android.c196.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TermsRecyclerViewAdapter extends RecyclerView.Adapter<TermsRecyclerViewAdapter.TermViewHolder> {
+public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermsHolder> {
 
-    private List<Term> terms;
+    private List<Term> terms = new ArrayList<>();
     private Context context;
-    private LayoutInflater inflater;
-    private Repository repo;
 
     //constructor
-    public TermsRecyclerViewAdapter(Context context, Repository repo) {
-
-        inflater = LayoutInflater.from(context);
+    public TermsAdapter(Context context) {
         this.context = context;
-        this.repo = repo;
-    }
-
-    public void setTerms(List<Term> terms) {
-        this.terms = terms;
-        notifyDataSetChanged();
     }
 
     //inflate layouts and applies styles to rows
     @NonNull
     @Override
-    public TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(R.layout.term_recycler_view_row, parent, false);
-        return new TermViewHolder(itemView);
+    public TermsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(context)
+                .inflate(R.layout.term_recycler_view_row, parent, false);
+        return new TermsHolder(itemView);
     }
 
     //tie data to recyclerView
     @Override
-    public void onBindViewHolder(@NonNull TermViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TermsHolder holder, int position) {
         if (terms != null) {
             Term term = terms.get(position);
             holder.termTitleText.setText(term.getTermTitle());
@@ -83,14 +73,14 @@ public class TermsRecyclerViewAdapter extends RecyclerView.Adapter<TermsRecycler
             holder.deleteTermIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(repo.getTermCourses(term.getTermId()).size() != 0) {
-                        Toast toast = Toast.makeText(context, "You cannot delete a term with courses.", Toast.LENGTH_LONG);
-                        toast.show();
-                    } else {
-                        repo.deleteTerm(term);
-                        terms = repo.getAllTerms();
-                        notifyItemRemoved(holder.getAdapterPosition());
-                    }
+//                    if(repo.getTermCourses(term.getTermId()).size() != 0) {
+//                        Toast toast = Toast.makeText(context, "You cannot delete a term with courses.", Toast.LENGTH_LONG);
+//                        toast.show();
+//                    } else {
+//                        repo.deleteTerm(term);
+//                        terms = repo.getAllTerms();
+//                        notifyItemRemoved(holder.getAdapterPosition());
+//                    }
                 }
             });
 
@@ -108,7 +98,14 @@ public class TermsRecyclerViewAdapter extends RecyclerView.Adapter<TermsRecycler
         return terms.size();
     }
 
-    class TermViewHolder extends RecyclerView.ViewHolder {
+    //allows LiveData to be passed into the recyclerview
+    public void setTerms(List<Term> terms) {
+        this.terms = terms;
+        //redraw layout
+        notifyDataSetChanged();
+    }
+
+    class TermsHolder extends RecyclerView.ViewHolder {
         private TextView termTitleText;
         private ImageView editTermIcon;
         private ImageView deleteTermIcon;
@@ -119,7 +116,7 @@ public class TermsRecyclerViewAdapter extends RecyclerView.Adapter<TermsRecycler
         private ConstraintLayout termHeader;
         private TextView isEmpty;
 
-        public TermViewHolder(@NonNull View itemView) {
+        public TermsHolder(@NonNull View itemView) {
             super(itemView);
 
             termHeader = itemView.findViewById(R.id.termHeader);

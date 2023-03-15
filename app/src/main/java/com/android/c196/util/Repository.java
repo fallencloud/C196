@@ -4,10 +4,11 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.android.c196.model.Assessment;
-import com.android.c196.model.Course;
+import com.android.c196.Assessment.Model.Assessment;
+import com.android.c196.Course.Model.Course;
 import com.android.c196.model.Instructor;
-import com.android.c196.model.Term;
+import com.android.c196.model.Note;
+import com.android.c196.Term.Model.Term;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -19,6 +20,7 @@ public class Repository {
     private CourseDao courseDao;
     private InstructorDao instructorDao;
     private AssessmentDao assessmentDao;
+    private NoteDao noteDao;
     private LiveData<List<Term>> allTerms;
     private LiveData<List<Course>> allCourses;
     private LiveData<List<Assessment>> allAssessments;
@@ -29,6 +31,7 @@ public class Repository {
     private Course currentCourse;
     private LiveData<List<Instructor>> courseInstructors;
     private Instructor currentInstr;
+    private Assessment currentAssess;
 
 
     public static int NUMBER_OF_THREADS = 4;
@@ -50,6 +53,8 @@ public class Repository {
 
         assessmentDao = database.assessmentDao();
         allAssessments = assessmentDao.getAllAssessments();
+
+        noteDao = database.noteDao();
 
     }
 
@@ -221,7 +226,7 @@ public class Repository {
      * Assessment API
      **************/
     public void insertAssessment(Assessment assessment) {
-        databaseExecutor.execute(() -> instructorDao.deleteInstructor(instructor));
+        databaseExecutor.execute(() -> assessmentDao.insertAssessment(assessment));
 
         try {
             Thread.sleep(1000);
@@ -230,4 +235,80 @@ public class Repository {
         }
     }
 
+    public LiveData<List<Assessment>> getAllAssessments() {
+        return allAssessments;
+    }
+
+    public Assessment getAssessment(int assessId) {
+        databaseExecutor.execute(() -> currentAssess = assessmentDao.getAssessment(assessId));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return currentAssess;
+    }
+
+    public LiveData<List<Assessment>> getCourseAssessments(int courseId) {
+        return assessmentDao.getCourseAssessments(courseId);
+    }
+
+    public void updateAssessment(Assessment assessment) {
+        databaseExecutor.execute(() -> assessmentDao.updateAssessment(assessment));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public  void deleteAssessment(Assessment assessment) {
+        databaseExecutor.execute(() -> assessmentDao.deleteAssessment(assessment));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /****************
+     * Note API
+     **************/
+    public void insertNote(Note note) {
+        databaseExecutor.execute(() -> noteDao.insertNote(note));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public  LiveData<List<Note>> getCourseNotes(int courseId) {
+        return noteDao.getCourseNotes(courseId);
+    }
+
+    public void updateNote(Note note) {
+        databaseExecutor.execute(() -> noteDao.updateNote(note));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteNote(Note note) {
+        databaseExecutor.execute(() -> noteDao.deleteNote(note));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

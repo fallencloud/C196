@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.android.c196.model.Term;
+import com.android.c196.Term.Model.Term;
 
 import java.util.List;
 

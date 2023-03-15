@@ -1,7 +1,9 @@
-package com.android.c196.model;
+package com.android.c196.Course.Model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.android.c196.model.CourseStatus;
 
 import java.util.Date;
 

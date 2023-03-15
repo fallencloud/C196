@@ -5,19 +5,23 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "note_table")
-public class CourseNote {
+public class Note {
     @PrimaryKey(autoGenerate = true)
     private int noteId;
     private int courseId;
     private String noteBody;
 
-    public CourseNote(int courseId, String noteBody) {
+    public Note(int courseId, String noteBody) {
         this.courseId = courseId;
         this.noteBody = noteBody;
     }
 
     public int getNoteId() {
         return noteId;
+    }
+
+    public void setNoteId(int noteId) {
+        this.noteId = noteId;
     }
 
     public int getCourseId() {

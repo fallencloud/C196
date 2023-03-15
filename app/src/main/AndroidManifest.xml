@@ -38,14 +38,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".UI.Assessments"
+            android:name=".Assessment.UI.Assessments"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".UI.Courses"
+            android:name=".Course.UI.Courses"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -62,7 +62,7 @@
 
         </activity>
         <activity
-            android:name=".UI.Terms"
+            android:name=".Term.UI.Terms"
             android:exported="false" />
     </application>
 

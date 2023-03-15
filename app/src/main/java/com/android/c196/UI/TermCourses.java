@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.c196.AddCourse;
 import com.android.c196.R;
-import com.android.c196.adapters.TermCourseAdapter;
-import com.android.c196.model.Course;
-import com.android.c196.model.CourseViewModel;
-import com.android.c196.model.Term;
-import com.android.c196.model.TermViewModel;
+import com.android.c196.Course.Adapters.CourseAdapter;
+import com.android.c196.Course.Model.Course;
+import com.android.c196.Course.Model.CourseViewModel;
+import com.android.c196.Term.Model.Term;
+import com.android.c196.Term.Model.TermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class TermCourses extends AppCompatActivity {
 
     private TermViewModel termViewModel;
     private CourseViewModel courseViewModel;
-    private TermCourseAdapter adapter;
+    private CourseAdapter adapter;
     private RecyclerView recyclerView;
     private FloatingActionButton addCourseFab;
 
@@ -52,7 +52,7 @@ public class TermCourses extends AppCompatActivity {
         });
         addCourseFab = findViewById(R.id.addCourseFab);
         recyclerView = findViewById(R.id.termCourseRecyclerView);
-        adapter = new TermCourseAdapter(this);
+        adapter = new CourseAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setCourses(termCourses);

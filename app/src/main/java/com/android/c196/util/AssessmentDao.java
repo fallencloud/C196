@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.android.c196.model.Assessment;
+import com.android.c196.Assessment.Model.Assessment;
 
 import java.util.List;
 
