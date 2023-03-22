@@ -1,4 +1,4 @@
-package com.android.c196.model;
+package com.android.c196.Note.Model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -9,6 +9,7 @@ public class Note {
     @PrimaryKey(autoGenerate = true)
     private int noteId;
     private int courseId;
+    private String noteTitle;
     private String noteBody;
 
     public Note(int courseId, String noteBody) {
@@ -30,6 +31,14 @@ public class Note {
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
+    }
+
+    public String getNoteTitle() {
+        return noteTitle;
+    }
+
+    public void setNoteTitle(String noteTitle) {
+        this.noteTitle = noteTitle;
     }
 
     public String getNoteBody() {

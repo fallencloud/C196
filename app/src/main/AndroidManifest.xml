@@ -10,6 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.C196">
         <activity
+            android:name=".CourseNotes"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Course.UI.CourseDetailed"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".AddInstructor"
             android:exported="false">
             <meta-data
@@ -17,21 +31,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AddCourse"
+            android:name=".Course.UI.AddCourse"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".UI.TermCourses"
+            android:name=".Term.UI.TermCourses"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".UI.AddTerm"
+            android:name=".Term.UI.AddTerm"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -59,7 +73,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".Term.UI.Terms"

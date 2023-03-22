@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.android.c196.Assessment.Model.Assessment;
 import com.android.c196.Course.Model.Course;
 import com.android.c196.model.Instructor;
-import com.android.c196.model.Note;
+import com.android.c196.Note.Model.Note;
 import com.android.c196.Term.Model.Term;
 
 import java.util.List;

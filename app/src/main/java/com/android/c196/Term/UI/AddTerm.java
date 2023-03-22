@@ -1,4 +1,4 @@
-package com.android.c196.UI;
+package com.android.c196.Term.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.android.c196.R;
-import com.android.c196.Term.UI.Terms;
 import com.android.c196.Term.Model.Term;
-import com.android.c196.util.Repository;
+import com.android.c196.Term.Model.TermViewModel;
 import com.android.c196.util.Utils;
 
 import java.util.Calendar;
@@ -31,7 +32,7 @@ public class AddTerm extends AppCompatActivity {
     private Boolean isStart;
     Date startDate;
     Date endDate;
-    private Repository repository;
+    private TermViewModel termViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class AddTerm extends AppCompatActivity {
         setContentView(R.layout.activity_add_term);
         setTitle("Add Term");
 
-        repository = new Repository(getApplication());
+        termViewModel = ViewModelProviders.of(this).get(TermViewModel.class);
 
         termTitleInput = findViewById(R.id.termTitleInput);
         startPickerButton = findViewById(R.id.startPickerButton);
@@ -80,21 +81,37 @@ public class AddTerm extends AppCompatActivity {
         } );
 
         saveButton.setOnClickListener(view1 -> {
-            String title = termTitleInput.getText().toString().trim();
-
-            if(!TextUtils.isEmpty(title) && startDate != null && endDate != null) {
-                Term newTerm = new Term(title, startDate,
-                        endDate);
-                repository.insertTerm(newTerm);
-                //cleanUp
-                termTitleInput.setText("");
-                startDate = null;
-                endDate = null;
-                Intent intent = new Intent(AddTerm.this, Terms.class);
-                startActivity(intent);
-            } else {
-                //TODO: Add error message
-            }
+            saveNote();
         });
+
+        cancelButton.setOnClickListener(view2 -> {
+            cancelSave();
+        });
+    } // end onCreate
+
+    private void saveNote() {
+        String title = termTitleInput.getText().toString().trim();
+
+        if(!TextUtils.isEmpty(title) && startDate != null && endDate != null) {
+            Term newTerm = new Term(title, startDate,
+                    endDate);
+            termViewModel.insertTerm(newTerm);
+            //cleanUp
+            termTitleInput.setText("");
+            startDate = null;
+            endDate = null;
+            Intent intent = new Intent(AddTerm.this, Terms.class);
+            startActivity(intent);
+        } else {
+            //TODO: Add error message
+            Toast.makeText(this, "Title, start, and end dates are required", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+    }
+
+    private void cancelSave() {
+        Intent intent = new Intent(AddTerm.this,Terms.class);
+        startActivity(intent);
     }
 }

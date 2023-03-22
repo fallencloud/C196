@@ -16,7 +16,7 @@ import com.android.c196.Course.Model.Course;
 import com.android.c196.Term.Model.Term;
 import com.android.c196.model.CourseStatus;
 import com.android.c196.model.Instructor;
-import com.android.c196.model.Note;
+import com.android.c196.Note.Model.Note;
 
 import java.util.Calendar;
 import java.util.Date;

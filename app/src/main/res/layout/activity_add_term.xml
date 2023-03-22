@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".UI.AddTerm">
+    tools:context=".Term.UI.AddTerm">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
     <EditText
         android:id="@+id/termTitleInput"
         style="@style/text_input_field"
-        android:hint="Enter term title"
+        android:hint="@string/term_title_prompt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -95,3 +99,4 @@
         app:layout_constraintTop_toBottomOf="@id/termCalendarView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

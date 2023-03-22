@@ -1,5 +1,6 @@
 package com.android.c196.Term.Adapters;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,9 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.c196.Course.Model.CourseViewModel;
 import com.android.c196.R;
 import com.android.c196.Term.Model.Term;
-import com.android.c196.UI.TermCourses;
+import com.android.c196.Term.UI.TermCourses;
 import com.android.c196.util.Utils;
 
 import java.util.ArrayList;
@@ -25,10 +27,13 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermsHolder>
 
     private List<Term> terms = new ArrayList<>();
     private Context context;
+    private CourseViewModel courseViewModel;
 
     //constructor
-    public TermsAdapter(Context context) {
+    public TermsAdapter(Context context, Application application) {
+
         this.context = context;
+        courseViewModel = new CourseViewModel(application);
     }
 
     //inflate layouts and applies styles to rows

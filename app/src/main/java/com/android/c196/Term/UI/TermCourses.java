@@ -1,4 +1,4 @@
-package com.android.c196.UI;
+package com.android.c196.Term.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.c196.AddCourse;
+import com.android.c196.Course.UI.AddCourse;
 import com.android.c196.R;
 import com.android.c196.Course.Adapters.CourseAdapter;
 import com.android.c196.Course.Model.Course;
@@ -24,12 +24,11 @@ import java.util.List;
 public class TermCourses extends AppCompatActivity {
     private Term term;
     private int termId;
-    private List<Course> termCourses;
 
-    private TermViewModel termViewModel;
     private CourseViewModel courseViewModel;
+    private TermViewModel termViewModel;
     private CourseAdapter adapter;
-    private RecyclerView recyclerView;
+    private RecyclerView courseRecyclerView;
     private FloatingActionButton addCourseFab;
 
     @Override
@@ -42,20 +41,23 @@ public class TermCourses extends AppCompatActivity {
         term = termViewModel.getTerm(termId);
         setTitle(term.getTermTitle());
 
+        courseRecyclerView = findViewById(R.id.termCourseRecyclerView);
+        courseRecyclerView.setLayoutManager(new LinearLayoutManager(TermCourses.this));
+        courseRecyclerView.setHasFixedSize(true);
+
+        adapter = new CourseAdapter(this);
+        courseRecyclerView.setAdapter(adapter);
+
         courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
 
-        courseViewModel.getTermCourses(term.getTermId()).observe(this, new Observer<List<Course>>() {
+        courseViewModel.getTermCourses(termId).observe(this, new Observer<List<Course>>() {
             @Override
             public void onChanged(List<Course> termCourses) {
-                TermCourses.this.termCourses = termCourses;
+                adapter.setCourses(termCourses);
             }
         });
+
         addCourseFab = findViewById(R.id.addCourseFab);
-        recyclerView = findViewById(R.id.termCourseRecyclerView);
-        adapter = new CourseAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setCourses(termCourses);
 
         addCourseFab.setOnClickListener(new View.OnClickListener() {
             @Override
