@@ -57,4 +57,5 @@
     <string name="instructor_name_text">Instructor Name</string>
     <string name="back_to_course">Back to Course</string>
     <string name="back_to_term">Back to Term</string>
+    <string name="type_text">Type</string>
 </resources>
