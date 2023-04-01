@@ -1,25 +1,29 @@
-package com.android.c196.model;
+package com.android.c196.Instructors.Model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "instructor_table")
+import com.android.c196.Course.Models.Course;
+
+@Entity(tableName = "instructor_table",
+foreignKeys = @ForeignKey(entity = Course.class,
+parentColumns = "courseId",
+childColumns = "instrCourseId",
+onDelete = ForeignKey.CASCADE))
 public class Instructor {
     @PrimaryKey(autoGenerate = true)
     private int instrId;
-    private int courseId;
+    private long instrCourseId;
     private String instrName;
     private String email;
     private String phone;
 
-    public Instructor() {
-    }
-
-    public Instructor( String instrName, String email, String phone, int courseId) {
+    public Instructor(String instrName, String email, String phone, long instrCourseId) {
         this.instrName = instrName;
         this.email = email;
         this.phone = phone;
-        this.courseId = courseId;
+        this.instrCourseId = instrCourseId;
     }
 
     public int getInstrId() {
@@ -30,12 +34,12 @@ public class Instructor {
         this.instrId = instrId;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public long getInstrCourseId() {
+        return instrCourseId;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setInstrCourseId(long courseId) {
+        this.instrCourseId = courseId;
     }
 
     public String getInstrName() {
@@ -66,7 +70,7 @@ public class Instructor {
     public String toString() {
         return "Instructor{" +
                 "instrId=" + instrId +
-                ", courseId=" + courseId +
+                ", courseId=" + instrCourseId +
                 ", name='" + instrName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +

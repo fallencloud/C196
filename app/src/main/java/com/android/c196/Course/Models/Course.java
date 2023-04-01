@@ -1,17 +1,21 @@
-package com.android.c196.Course.Model;
+package com.android.c196.Course.Models;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import com.android.c196.model.CourseStatus;
+import com.android.c196.Term.Model.Term;
 
 import java.util.Date;
 
-@Entity(tableName = "course_table")
+@Entity(tableName = "course_table",
+    foreignKeys = @ForeignKey(entity = Term.class,
+    parentColumns = "termId",
+    childColumns = "courseTermId"))
 public class Course {
     @PrimaryKey(autoGenerate = true)
-    private int courseId;
-    private int termId;
+    private long courseId;
+    private int courseTermId;
     private String courseTitle;
     private Date courseStartDate;
     private Date courseEndDate;
@@ -22,27 +26,27 @@ public class Course {
     }
 
     public Course(int termId, String courseTitle, Date courseStartDate, Date courseEndDate, CourseStatus courseStatus) {
-        this.termId = termId;
+        this.courseTermId = termId;
         this.courseTitle = courseTitle;
         this.courseStartDate = courseStartDate;
         this.courseEndDate = courseEndDate;
         this.courseStatus = courseStatus;
     }
 
-    public int getCourseId() {
+    public long getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(long courseId) {
         this.courseId = courseId;
     }
 
-    public int getTermId() {
-        return termId;
+    public int getCourseTermId() {
+        return courseTermId;
     }
 
-    public void setTermId(int termId) {
-        this.termId = termId;
+    public void setCourseTermId(int termId) {
+        this.courseTermId = termId;
     }
 
     public String getCourseTitle() {

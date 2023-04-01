@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Course.UI.AddCourse">
+    android:layout_height="wrap_content"
+    tools:context=".Course.Controllers.AddCourse">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,65 +39,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/statusText" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/courseInstructors"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/courseStatus">
-
-        <LinearLayout
-            android:id="@+id/courseInstrHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="vertical"
-            app:barrierMargin="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/courseInstrLabel"
-                style="@style/header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                android:background="@color/primary_dark"
-                android:text="@string/instructorsText" />
-
-            <EditText
-                android:id="@+id/instrName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="@string/instructor_name"
-                android:minHeight="48dp" />
-
-            <EditText
-                android:id="@+id/instrPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/instructor_phone"
-                android:minHeight="48dp" />
-
-            <EditText
-                android:id="@+id/instrEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/instructor_email"
-                android:minHeight="48dp" />
-
-        </LinearLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <TextView
         android:id="@+id/startDateText"
@@ -105,7 +46,7 @@
         android:text="@string/start_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/courseInstructors" />
+        app:layout_constraintTop_toBottomOf="@id/courseStatus" />
 
     <Button
         android:id="@+id/startPickerButton"

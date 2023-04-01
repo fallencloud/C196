@@ -1,4 +1,4 @@
-package com.android.c196.UI;
+package com.android.c196.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.c196.Assessment.UI.Assessments;
-import com.android.c196.Course.UI.Courses;
+import com.android.c196.Assessment.Controllers.Assessments;
+import com.android.c196.Course.Controllers.Courses;
 import com.android.c196.R;
-import com.android.c196.Term.UI.Terms;
+import com.android.c196.Term.Controllers.Terms;
 import com.android.c196.util.Repository;
 
 import java.util.ArrayList;

@@ -43,4 +43,18 @@
     <string name="assessmentsString">Assessments</string>
     <string name="termsString">Terms</string>
     <string name="assessmentText">Assessments</string>
+    <string name="course_title">Course Title</string>
+    <string name="add_instructor">Add Instructor</string>
+    <string name="add_assessment">Add Assessment</string>
+    <string name="add_note">Add Note</string>
+    <string name="view_course_notes">View Course Notes</string>
+    <string name="enter_assessment_title">Enter assessment title</string>
+    <string name="enter_note_title">Enter note title</string>
+    <string name="note_body">Note body</string>
+    <string name="assessment_start_date">Assessment Start Date</string>
+    <string name="assessment_end_date">Assessment End Date</string>
+    <string name="assessment_title">Assessment Title</string>
+    <string name="instructor_name_text">Instructor Name</string>
+    <string name="back_to_course">Back to Course</string>
+    <string name="back_to_term">Back to Term</string>
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/course_home"
+        android:title="@string/homeString" />
+    <item
+        android:id="@+id/add_instructor"
+        android:title="@string/add_instructor"
+        />
+    <item
+        android:id="@+id/add_assessment"
+        android:title="@string/add_assessment" />
+
+    <item
+        android:id="@+id/view_notes"
+        android:title="@string/view_course_notes" />
+</menu>

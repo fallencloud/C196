@@ -1,4 +1,4 @@
-package com.android.c196.Course.Model;
+package com.android.c196.Course.Models;
 
 import android.app.Application;
 
@@ -22,18 +22,19 @@ public class CourseViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Course>> getAllCourses() {
-        return repository.getAllCourses();
+        return allCourses;
     }
 
     public LiveData<List<Course>> getTermCourses(int termId) {
-        return repository.getTermCourses(termId);
+        termCourses = repository.getTermCourses(termId);
+        return termCourses;
     }
 
-    public void insertCourse(Course course) {
-        repository.insertCourse(course);
+    public long insertCourse(Course course) {
+        return repository.insertCourse(course);
     }
 
-    public Course getCourse(int courseId) {
+    public Course getCourse(long courseId) {
         return repository.getCourse(courseId);
     }
 

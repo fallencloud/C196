@@ -5,8 +5,8 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.android.c196.Assessment.Model.Assessment;
-import com.android.c196.Course.Model.Course;
-import com.android.c196.model.Instructor;
+import com.android.c196.Course.Models.Course;
+import com.android.c196.Instructors.Model.Instructor;
 import com.android.c196.Note.Model.Note;
 import com.android.c196.Term.Model.Term;
 
@@ -21,6 +21,7 @@ public class Repository {
     private InstructorDao instructorDao;
     private AssessmentDao assessmentDao;
     private NoteDao noteDao;
+    private Note note;
     private LiveData<List<Term>> allTerms;
     private LiveData<List<Course>> allCourses;
     private LiveData<List<Assessment>> allAssessments;
@@ -113,8 +114,7 @@ public class Repository {
         return allCourses;
     }
 
-    public void insertCourse(Course course) {
-
+    public long insertCourse(Course course) {
         databaseExecutor.execute(() -> {
             courseDao.insertCourse(course);
         });
@@ -124,13 +124,15 @@ public class Repository {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        return course.getCourseId();
     }
 
     public LiveData<List<Course>> getTermCourses(int termId) {
         return courseDao.getTermCourses(termId);
     }
 
-    public Course getCourse(int courseId) {
+    public Course getCourse(long courseId) {
         databaseExecutor.execute(() -> {
             currentCourse = courseDao.getCourse(courseId);
         });
@@ -156,7 +158,9 @@ public class Repository {
     }
 
     public void deleteCourse(Course course) {
+        databaseExecutor.execute(() -> {
         courseDao.deleteCourse(course);
+        });
 
         try {
             Thread.sleep(1000);
@@ -185,7 +189,7 @@ public class Repository {
         }
     }
 
-    public LiveData<List<Instructor>> getCourseInstructors(int courseId) {
+    public LiveData<List<Instructor>> getCourseInstructors(long courseId) {
        courseInstructors = instructorDao.getCourseInstructors(courseId);
         return courseInstructors;
     }
@@ -251,7 +255,7 @@ public class Repository {
         return currentAssess;
     }
 
-    public LiveData<List<Assessment>> getCourseAssessments(int courseId) {
+    public LiveData<List<Assessment>> getCourseAssessments(long courseId) {
         return assessmentDao.getCourseAssessments(courseId);
     }
 
@@ -288,8 +292,22 @@ public class Repository {
         }
     }
 
-    public  LiveData<List<Note>> getCourseNotes(int courseId) {
+    public  LiveData<List<Note>> getCourseNotes(long courseId) {
         return noteDao.getCourseNotes(courseId);
+    }
+
+    public Note getNote(int noteId) {
+        databaseExecutor.execute(() -> {
+            note = noteDao.getNote(noteId);
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return note;
     }
 
     public void updateNote(Note note) {

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.c196">
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,63 +12,84 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.C196">
         <activity
-            android:name=".CourseNotes"
+            android:name=".CourseAssessments"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Course.UI.CourseDetailed"
+            android:name=".Note.Controllers.AddNote"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".AddInstructor"
+            android:name=".Assessment.Controllers.AddAssessment"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Course.UI.AddCourse"
+            android:name=".Note.Controllers.CourseNotes"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Term.UI.TermCourses"
+            android:name=".Course.Controllers.CourseDetailed"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Term.UI.AddTerm"
+            android:name=".Instructors.Controllers.AddInstructor"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Assessment.UI.Assessments"
+            android:name=".Course.Controllers.AddCourse"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Course.UI.Courses"
+            android:name=".Term.Controllers.TermCourses"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".UI.Home"
+            android:name=".Term.Controllers.AddTerm"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Assessment.Controllers.Assessments"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Course.Controllers.Courses"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Home.Home"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -75,8 +98,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Term.UI.Terms"
+            android:name=".Term.Controllers.Terms"
             android:exported="false" />
+
+        <receiver
+            android:name=".util.AlertReceiver"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

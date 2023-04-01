@@ -1,8 +1,11 @@
-package com.android.c196.Term.UI;
+package com.android.c196.Term.Controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.c196.Home.Home;
 import com.android.c196.R;
 import com.android.c196.Term.Model.Term;
 import com.android.c196.Term.Model.TermViewModel;
@@ -34,11 +38,18 @@ public class AddTerm extends AppCompatActivity {
     Date endDate;
     private TermViewModel termViewModel;
 
+    //edit term
+    int termId;
+    Term term;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_term);
-        setTitle("Add Term");
+        termId = getIntent().getIntExtra("termId", -1);
+
+
+        setTitle(termId == -1? "Add Term" : "Edit Term");
 
         termViewModel = ViewModelProviders.of(this).get(TermViewModel.class);
 
@@ -50,6 +61,8 @@ public class AddTerm extends AppCompatActivity {
         termCalendarView = findViewById(R.id.termCalendarView);
         termCalendarView.setVisibility(View.GONE);
         isStart = false;
+
+        checkForEditTerm();
 
         startPickerButton.setOnClickListener(view2 -> {
             isStart = true;
@@ -81,13 +94,32 @@ public class AddTerm extends AppCompatActivity {
         } );
 
         saveButton.setOnClickListener(view1 -> {
-            saveNote();
+            if (termId == -1) {
+                saveNote();
+            } else {
+                saveNote(termId);
+            }
         });
 
         cancelButton.setOnClickListener(view2 -> {
             cancelSave();
         });
     } // end onCreate
+
+    private void checkForEditTerm() {
+        if (termId != -1) {
+            //get term info and add to view
+            term = termViewModel.getTerm(termId);
+            termTitleInput.setText(term.getTermTitle());
+            startDate = term.getTermStartDate();
+            endDate = term.getTermEndDate();
+
+            startPickerButton.setText(Utils.formatButtonDate(startDate));
+            endPickerButton.setText(Utils.formatButtonDate(endDate));
+
+
+        }
+    }
 
     private void saveNote() {
         String title = termTitleInput.getText().toString().trim();
@@ -109,9 +141,55 @@ public class AddTerm extends AppCompatActivity {
             return;
         }
     }
+    public void saveNote(int termId) {
+        String title = termTitleInput.getText().toString().trim();
+
+        if(!TextUtils.isEmpty(title) && startDate != null && endDate != null) {
+            term.setTermTitle(title);
+            term.setTermStartDate(startDate);
+            term.setTermEndDate(endDate);
+            termViewModel.updateTerm(term);
+            //cleanUp
+            termTitleInput.setText("");
+            startDate = null;
+            endDate = null;
+            Intent intent = new Intent(AddTerm.this, Terms.class);
+            startActivity(intent);
+        } else {
+            //TODO: Add error message
+            Toast.makeText(this, "Title, start, and end dates are required", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+    }
 
     private void cancelSave() {
         Intent intent = new Intent(AddTerm.this,Terms.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.sub_term_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.term_home:
+                intent = new Intent(this, Home.class);
+                startActivity(intent);
+                return true;
+            case R.id.term_courses:
+                intent = new Intent(this, TermCourses.class);
+                intent.putExtra("termId", termId);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 }

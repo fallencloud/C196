@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.android.c196.model.Instructor;
+import com.android.c196.Instructors.Model.Instructor;
 
 import java.util.List;
 
@@ -23,8 +23,8 @@ public interface InstructorDao {
     @Query("SELECT * FROM instructor_table")
     LiveData<List<Instructor>> getAllInstructors();
 
-    @Query("SELECT * FROM instructor_table WHERE instructor_table.courseId == :courseId")
-    LiveData<List<Instructor>> getCourseInstructors(int courseId);
+    @Query("SELECT * FROM instructor_table WHERE instructor_table.instrCourseId == :courseId")
+    LiveData<List<Instructor>> getCourseInstructors(long courseId);
 
     @Query("SELECT * FROM instructor_table WHERE instructor_table.instrId == :instrId")
     Instructor getInstructor(int instrId);

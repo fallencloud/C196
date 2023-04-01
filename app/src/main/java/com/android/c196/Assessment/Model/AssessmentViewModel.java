@@ -32,7 +32,7 @@ public class AssessmentViewModel extends AndroidViewModel {
         return repository.getAssessment(assessId);
     }
 
-    public LiveData<List<Assessment>> getCourseAssessments(int courseId) {
+    public LiveData<List<Assessment>> getCourseAssessments(long courseId) {
         return repository.getCourseAssessments(courseId);
     }
     public void updateAssessment(Assessment assessment) {

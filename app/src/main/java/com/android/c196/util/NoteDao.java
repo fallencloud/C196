@@ -20,8 +20,11 @@ public interface NoteDao {
     void insertNote(Note note);
 
     //Read
-    @Query("SELECT * FROM note_table WHERE note_table.courseId = :courseId")
-    LiveData<List<Note>> getCourseNotes(int courseId);
+    @Query("SELECT * FROM note_table WHERE note_table.noteCourseId = :courseId")
+    LiveData<List<Note>> getCourseNotes(long courseId);
+
+    @Query("SELECT * FROM note_table WHERE note_table.noteId = :noteId")
+    Note getNote(int noteId);
 
     //Update
     @Update

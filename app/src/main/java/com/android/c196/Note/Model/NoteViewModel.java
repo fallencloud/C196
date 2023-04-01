@@ -23,8 +23,11 @@ public class NoteViewModel extends AndroidViewModel {
         repository.insertNote(note);
     }
 
-    public LiveData<List<Note>> getCourseNotes(int courseId) {
+    public LiveData<List<Note>> getCourseNotes(long courseId) {
         return repository.getCourseNotes(courseId);
+    }
+    public Note getNote(int noteId) {
+        return repository.getNote(noteId);
     }
 
     public void updateNote(Note note) {

@@ -27,8 +27,8 @@ public interface AssessmentDao {
     Assessment getAssessment(int assessId);
 
     //Read Course Assessments
-    @Query("SELECT * FROM assess_table WHERE assess_table.courseId == :courseId")
-    LiveData<List<Assessment>> getCourseAssessments(int courseId);
+    @Query("SELECT * FROM assess_table WHERE assess_table.assessCourseId == :courseId")
+    LiveData<List<Assessment>> getCourseAssessments(long courseId);
 
     //Update
     @Update

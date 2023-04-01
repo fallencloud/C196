@@ -1,4 +1,4 @@
-package com.android.c196.model;
+package com.android.c196.Instructors.Model;
 
 import android.app.Application;
 
@@ -27,7 +27,7 @@ public class InstructorViewModel extends AndroidViewModel {
         repository.insertInstructor(instructor);
     }
 
-    public LiveData<List<Instructor>> getCourseInstructors(int courseId) {
+    public LiveData<List<Instructor>> getCourseInstructors(long courseId) {
         return repository.getCourseInstructors(courseId);
     }
 

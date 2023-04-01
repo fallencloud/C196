@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Term.UI.Terms">
+    tools:context=".Term.Controllers.Terms">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/termsRecyclerView"

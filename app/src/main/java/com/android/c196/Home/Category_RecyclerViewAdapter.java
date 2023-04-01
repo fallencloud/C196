@@ -1,4 +1,4 @@
-package com.android.c196.UI;
+package com.android.c196.Home;
 
 import android.content.Context;
 import android.view.LayoutInflater;

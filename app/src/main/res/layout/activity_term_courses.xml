@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Term.UI.TermCourses">
+    tools:context=".Term.Controllers.TermCourses">
 
     <ScrollView
         android:layout_width="match_parent"

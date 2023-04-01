@@ -1,4 +1,4 @@
-package com.android.c196.Term.UI;
+package com.android.c196.Term.Controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.c196.Course.UI.AddCourse;
+import com.android.c196.Course.Controllers.AddCourse;
 import com.android.c196.R;
 import com.android.c196.Course.Adapters.CourseAdapter;
-import com.android.c196.Course.Model.Course;
-import com.android.c196.Course.Model.CourseViewModel;
+import com.android.c196.Course.Models.Course;
+import com.android.c196.Course.Models.CourseViewModel;
 import com.android.c196.Term.Model.Term;
 import com.android.c196.Term.Model.TermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,7 +45,7 @@ public class TermCourses extends AppCompatActivity {
         courseRecyclerView.setLayoutManager(new LinearLayoutManager(TermCourses.this));
         courseRecyclerView.setHasFixedSize(true);
 
-        adapter = new CourseAdapter(this);
+        adapter = new CourseAdapter(this, getApplication());
         courseRecyclerView.setAdapter(adapter);
 
         courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);

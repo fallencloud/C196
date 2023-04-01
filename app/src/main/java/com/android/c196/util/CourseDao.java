@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.android.c196.Course.Model.Course;
+import com.android.c196.Course.Models.Course;
 
 import java.util.List;
 
@@ -16,17 +16,17 @@ import java.util.List;
 public interface CourseDao {
     //Create
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertCourse(Course course);
+    long insertCourse(Course course);
 
     //Read
     @Query("SELECT * FROM course_table")
     LiveData<List<Course>> getAllCourses();
 
-    @Query("SELECT * FROM course_table WHERE course_table.termId == :termId")
+    @Query("SELECT * FROM course_table WHERE course_table.courseTermId == :termId")
     LiveData<List<Course>> getTermCourses(int termId);
 
     @Query("SELECT * FROM course_table WHERE course_table.courseId == :courseId")
-    Course getCourse(int courseId);
+    Course getCourse(long courseId);
 
     //Update
     @Update

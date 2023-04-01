@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/term_home"
+        android:title="@string/homeString" />
+    <item
+        android:id="@+id/term_courses"
+        android:title="@string/back_to_term" />
+
+</menu>

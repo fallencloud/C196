@@ -1,11 +1,10 @@
-package com.android.c196.Term.UI;
+package com.android.c196.Assessment.Controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -13,59 +12,42 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.c196.Assessment.UI.Assessments;
-import com.android.c196.Course.UI.Courses;
+import com.android.c196.Assessment.Adapters.AssessmentAdapter;
+import com.android.c196.Assessment.Model.Assessment;
+import com.android.c196.Assessment.Model.AssessmentViewModel;
+import com.android.c196.Course.Controllers.Courses;
 import com.android.c196.R;
-import com.android.c196.Term.Adapters.TermsAdapter;
-import com.android.c196.Term.Model.Term;
-import com.android.c196.Term.Model.TermViewModel;
-import com.android.c196.UI.Home;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.android.c196.Term.Controllers.Terms;
+import com.android.c196.Home.Home;
 
 import java.util.List;
 
-public class Terms extends AppCompatActivity {
-    private TermViewModel termViewModel;
-    private FloatingActionButton addTermFab;
+public class Assessments extends AppCompatActivity {
+    private AssessmentViewModel assessmentViewModel;
     //recyclerView
-    private RecyclerView termRecyclerView;
-    private TermsAdapter adapter;
+    private RecyclerView assessRecyclerView;
+    private AssessmentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_terms);
-        setTitle("All Terms");
+        setContentView(R.layout.activity_assessments);
+        setTitle("All Assessments");
 
-        termRecyclerView = findViewById(R.id.termsRecyclerView);
-        termRecyclerView.setLayoutManager(new LinearLayoutManager(Terms.this));
-        termRecyclerView.setHasFixedSize(true);
+        assessRecyclerView = findViewById(R.id.assessmentRecyclerView);
+        assessRecyclerView.setLayoutManager(new LinearLayoutManager(Assessments.this));
+        assessRecyclerView.setHasFixedSize(true);
 
-        adapter = new TermsAdapter(this, getApplication());
-        termRecyclerView.setAdapter(adapter);
-
-
-        termViewModel = ViewModelProviders.of(this).get(TermViewModel.class);
-        termViewModel.getAllTerms().observe(this, new Observer<List<Term>>() {
+        adapter = new AssessmentAdapter(this, getApplication());
+        assessRecyclerView.setAdapter(adapter);
+        assessmentViewModel = ViewModelProviders.of(this).get(AssessmentViewModel.class);
+        assessmentViewModel.getAllAssessments().observe(this, new Observer<List<Assessment>>() {
             @Override
-            public void onChanged(List<Term> terms) {
-                //pass LiveData to RecyclerView
-                adapter.setTerms(terms);
-
-            }
-        });
-
-        addTermFab = findViewById(R.id.addTermFab);
-
-        addTermFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Terms.this, AddTerm.class);
-                startActivity(intent);
+            public void onChanged(List<Assessment> assessments) {
+                adapter.setAssessments(assessments);
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();

@@ -2,18 +2,27 @@ package com.android.c196.Note.Model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "note_table")
+import com.android.c196.Course.Models.Course;
+
+@Entity(tableName = "note_table",
+        foreignKeys = @ForeignKey(entity = Course.class,
+        parentColumns = "courseId",
+        childColumns = "noteCourseId",
+        onDelete = ForeignKey.CASCADE))
+
 public class Note {
     @PrimaryKey(autoGenerate = true)
     private int noteId;
-    private int courseId;
+    private long noteCourseId;
     private String noteTitle;
     private String noteBody;
 
-    public Note(int courseId, String noteBody) {
-        this.courseId = courseId;
+    public Note(long noteCourseId, String noteTitle, String noteBody) {
+        this.noteCourseId = noteCourseId;
+        this.noteTitle = noteTitle;
         this.noteBody = noteBody;
     }
 
@@ -25,12 +34,12 @@ public class Note {
         this.noteId = noteId;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public long getNoteCourseId() {
+        return noteCourseId;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setNoteCourseId(long courseId) {
+        this.noteCourseId = courseId;
     }
 
     public String getNoteTitle() {

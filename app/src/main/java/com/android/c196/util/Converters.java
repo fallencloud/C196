@@ -2,7 +2,7 @@ package com.android.c196.util;
 
 import androidx.room.TypeConverter;
 
-import com.android.c196.model.CourseStatus;
+import com.android.c196.Course.Models.CourseStatus;
 
 import java.util.Date;
 

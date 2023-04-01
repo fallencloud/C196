@@ -9,15 +9,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.c196.Course.Model.CourseViewModel;
+import com.android.c196.Course.Models.CourseViewModel;
 import com.android.c196.R;
+import com.android.c196.Term.Controllers.AddTerm;
+import com.android.c196.Term.Controllers.TermCourses;
 import com.android.c196.Term.Model.Term;
-import com.android.c196.Term.UI.TermCourses;
+import com.android.c196.Term.Model.TermViewModel;
 import com.android.c196.util.Utils;
 
 import java.util.ArrayList;
@@ -28,12 +32,14 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermsHolder>
     private List<Term> terms = new ArrayList<>();
     private Context context;
     private CourseViewModel courseViewModel;
+    private TermViewModel termViewModel;
 
     //constructor
     public TermsAdapter(Context context, Application application) {
 
         this.context = context;
         courseViewModel = new CourseViewModel(application);
+        termViewModel = new TermViewModel(application);
     }
 
     //inflate layouts and applies styles to rows
@@ -66,6 +72,16 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermsHolder>
                 }
             });
 
+            holder.editTermIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, AddTerm.class);
+                    intent.putExtra("termId", term.getTermId());
+                    context.startActivity(intent);
+                }
+            });
+
+
             holder.showCoursesIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -78,14 +94,14 @@ public class TermsAdapter extends RecyclerView.Adapter<TermsAdapter.TermsHolder>
             holder.deleteTermIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    if(repo.getTermCourses(term.getTermId()).size() != 0) {
-//                        Toast toast = Toast.makeText(context, "You cannot delete a term with courses.", Toast.LENGTH_LONG);
-//                        toast.show();
-//                    } else {
-//                        repo.deleteTerm(term);
-//                        terms = repo.getAllTerms();
-//                        notifyItemRemoved(holder.getAdapterPosition());
-//                    }
+                    courseViewModel.getTermCourses(term.getTermId()).observe((LifecycleOwner) context, courses -> {
+                        if (courses != null && courses.size() > 0) {
+                            Toast toast = Toast.makeText(context, "You cannot delete a term with courses.", Toast.LENGTH_LONG);
+                            toast.show();
+                        } else {
+                            termViewModel.deleteTerm(term);
+                        }
+                    });
                 }
             });
 

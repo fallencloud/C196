@@ -1,30 +1,35 @@
 package com.android.c196.Assessment.Model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+
+import com.android.c196.Course.Models.Course;
 
 import java.util.Date;
 
-@Entity(tableName = "assess_table")
+@Entity(tableName = "assess_table",
+        foreignKeys = @ForeignKey(entity = Course.class,
+        parentColumns = "courseId",
+        childColumns = "assessCourseId",
+        onDelete = ForeignKey.CASCADE)
+)
 public class Assessment {
     @PrimaryKey(autoGenerate = true)
     private int assessId;
-    private int courseId;
+    private long assessCourseId;
     private String assessTitle;
+    private Date assessStartDate;
     private Date assessEndDate;
     private AssessmentType assessType;
 
-    public  Assessment() {
-
-    }
-
-    public Assessment(int courseId, String assessTitle, Date assessEndDate, AssessmentType assessType) {
-        this.courseId = courseId;
+    public Assessment(long assessCourseId, String assessTitle, Date assessStartDate, Date assessEndDate, AssessmentType assessType) {
+        this.assessCourseId = assessCourseId;
         this.assessTitle = assessTitle;
+        this.assessStartDate = assessStartDate;
         this.assessEndDate = assessEndDate;
         this.assessType = assessType;
     }
-
 
     public int getAssessId() {
         return assessId;
@@ -33,12 +38,12 @@ public class Assessment {
         this.assessId = assessId;
     };
 
-    public int getCourseId() {
-        return courseId;
+    public long getAssessCourseId() {
+        return assessCourseId;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setAssessCourseId(long assessCourseId) {
+        this.assessCourseId = assessCourseId;
     }
 
     public String getAssessTitle() {
@@ -47,6 +52,14 @@ public class Assessment {
 
     public void setAssessTitle(String assessTitle) {
         this.assessTitle = assessTitle;
+    }
+
+    public Date getAssessStartDate() {
+        return assessStartDate;
+    }
+
+    public void setAssessStartDate(Date assessStartDate) {
+        this.assessStartDate = assessStartDate;
     }
 
     public Date getAssessEndDate() {

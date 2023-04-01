@@ -1,4 +1,4 @@
-package com.android.c196.model;
+package com.android.c196.Course.Models;
 
 public enum CourseStatus {
     IN_PROGRESS,

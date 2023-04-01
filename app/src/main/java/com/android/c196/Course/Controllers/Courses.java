@@ -1,11 +1,10 @@
-package com.android.c196.Course.UI;
+package com.android.c196.Course.Controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -13,20 +12,18 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.c196.Assessment.UI.Assessments;
+import com.android.c196.Assessment.Controllers.Assessments;
 import com.android.c196.Course.Adapters.CourseAdapter;
-import com.android.c196.Course.Model.Course;
-import com.android.c196.Course.Model.CourseViewModel;
+import com.android.c196.Course.Models.Course;
+import com.android.c196.Course.Models.CourseViewModel;
 import com.android.c196.R;
-import com.android.c196.Term.UI.Terms;
-import com.android.c196.UI.Home;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.android.c196.Term.Controllers.Terms;
+import com.android.c196.Home.Home;
 
 import java.util.List;
 
 public class Courses extends AppCompatActivity {
     private CourseViewModel courseViewModel;
-    private FloatingActionButton addCourseFab;
     //recyclerView
     private RecyclerView courseRecyclerView;
     private CourseAdapter adapter;
@@ -41,7 +38,7 @@ public class Courses extends AppCompatActivity {
         courseRecyclerView.setLayoutManager(new LinearLayoutManager(Courses.this));
         courseRecyclerView.setHasFixedSize(true);
 
-        adapter = new CourseAdapter(this);
+        adapter = new CourseAdapter(this, getApplication());
         courseRecyclerView.setAdapter(adapter);
 
         courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
@@ -50,16 +47,6 @@ public class Courses extends AppCompatActivity {
             public void onChanged(List<Course> courses) {
                 //update RecyclerView
                 adapter.setCourses(courses);
-            }
-        });
-
-        addCourseFab = findViewById(R.id.addCourseFab);
-
-        addCourseFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Courses.this, AddCourse.class);
-                startActivity(intent);
             }
         });
     }
